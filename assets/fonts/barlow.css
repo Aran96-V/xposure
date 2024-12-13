@@ -1,0 +1,43 @@
+@font-face {
+  font-family:"Barlow-Regular";
+  src: url('../fonts/barlow/BarlowCondensed-Regular.ttf');
+}
+@font-face {
+  font-family:"Barlow-Medium";
+  src: url('../fonts/barlow/BarlowCondensed-Medium.ttf');
+}
+@font-face {
+  font-family:"Barlow-Bold";
+  src: url('../fonts/barlow/BarlowCondensed-Bold.ttf');
+}
+@font-face {
+  font-family:"Barlow-Black";
+  src: url('../fonts/barlow/BarlowCondensed-Black.ttf');
+}
+
+/* josh */
+
+@font-face {
+  font-family:"josh-hline";
+  src: url('../fonts/josh/Jost100Hairline.otf');
+}
+@font-face {
+  font-family:"josh-book";
+  src: url('../fonts/josh/Jost400Book.otf');
+}
+@font-face {
+  font-family:"josh-medium";
+  src: url('../fonts/josh/Jost500Medium.otf');
+}
+@font-face {
+  font-family:"josh-bold";
+  src: url('../fonts/josh/Jost700Bold.otf');
+}
+@font-face {
+  font-family:"josh-heavy";
+  src: url('../fonts/josh/Jost800Heavy.otf');
+}
+@font-face {
+  font-family:"josh-Black";
+  src: url('../fonts/josh/Jost900Black.otf');
+}

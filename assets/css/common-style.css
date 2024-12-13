@@ -1,0 +1,116 @@
+@font-face {
+    font-family:"Mindset";
+    src: url('../fonts/Mindset\ Pressed.otf');
+}
+
+@font-face {
+    font-family:"SweetSansProRegular";
+    src: url('../fonts/SweetSansProRegular.otf');
+}
+
+@font-face {
+    font-family:"Trajan-Pro-Regular";
+    src: url('../fonts/Trajan\ Pro\ Regular.ttf');
+}
+
+@font-face {
+    font-family:"hevelticar";
+    src: url('../fonts/heveltica/Helvetica.ttf');
+}
+
+
+@font-face {
+    font-family:"IBMPlexSans-bold";
+    src: url('../fonts/fonts/IBMPlexSans-Bold.ttf');
+}
+
+/* roboto */
+@font-face {
+    font-family:"Roboto-Bold";
+    src: url('../fonts/roboto/Roboto-Bold.ttf');
+}
+@font-face {
+    font-family:"Roboto-Medium";
+    src: url('../fonts/roboto/Roboto-Medium.ttf');
+}
+@font-face {
+    font-family:"Roboto-Regular";
+    src: url('../fonts/roboto/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family:"Roboto-Thin";
+    src: url('../fonts/roboto/Roboto-Thin.ttf');
+}
+
+
+.p-100{
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+
+.t-c{
+    text-align: center;
+}
+
+.brd-b{
+    border-bottom: 1px solid #0000002b;
+}
+.p-no{
+    padding: 0px;
+}
+.j-center ul{
+    justify-content: center;
+}
+
+.m-b{
+    margin-bottom: 20px;
+}
+
+.m-top{
+    margin-top: 100px;
+}
+
+.f-s{
+    font-size: 14px;
+}
+
+.p-50{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.pb{
+    padding-bottom: 150px;
+}
+
+.p-b100{
+    padding-bottom: 150px;
+}
+
+.mb-b{
+    margin-bottom: 30px;
+}
+
+.home-footer-g-panel{
+    margin-top: 100px;
+  }
+  
+
+.m-top-top{
+    margin-top: 150px;
+}
+
+.p-l-60{
+    padding-left: 60px;
+}
+.p-80{
+    padding:125px 0px;
+}
+.relative-p{
+    position: relative;
+}
+
+.m-t-row{
+    margin-top: 100px;
+}

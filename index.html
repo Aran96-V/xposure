@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Grid Homepage</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+<body>
+    <header>
+        <h1>Welcome to the 10x10 Pixel Grid Homepage</h1>
+        <p>Select blocks by clicking or dragging, then submit your company's logo!</p>
+    </header>
+
+    <div class="container-port">
+        <div class="ourgames">
+            <a href="https://play.google.com/store/apps/details?id=com.MobaGames.CutIt" class="gamebx">
+                <div class="gmdsp"><img src="assets/images/game-icons/cutit.webp" alt=""></div>
+                <div class="gmname-dt">
+                    <h3>Cut It - Rope Puzzle</h3>
+                </div>
+            </a>
+    
+            <a href="https://play.google.com/store/apps/details?id=com.MobaGames.CutIt" class="gamebx">
+                <div class="gmdsp"><img src="assets/images/game-icons/break-it.webp" alt=""></div>
+                <div class="gmname-dt">
+                    <h3>Cut It - Rope Puzzle</h3>
+                </div>
+            </a>
+    
+            <a href="https://play.google.com/store/apps/details?id=com.MobaGames.CutIt" class="gamebx">
+                <div class="gmdsp"><img src="assets/images/game-icons/bottle-break.webp" alt=""></div>
+                <div class="gmname-dt">
+                    <h3>Cut It - Rope Puzzle</h3>
+                </div>
+            </a>
+    
+            <a href="https://play.google.com/store/apps/details?id=com.MobaGames.CutIt" class="gamebx">
+                <div class="gmdsp"><img src="assets/images/game-icons/stickman-laser.webp" alt=""></div>
+                <div class="gmname-dt">
+                    <h3>Cut It - Rope Puzzle</h3>
+                </div>
+            </a>
+    
+            <a href="https://play.google.com/store/apps/details?id=com.MobaGames.CutIt" class="gamebx">
+                <div class="gmdsp"><img src="assets/images/game-icons/zombie-hookmaster.webp" alt=""></div>
+                <div class="gmname-dt">
+                    <h3>Cut It - Rope Puzzle</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <h1>Buy Pixels for Your Logo</h1>
+
+    <div class="flex-bx">
+
+        
+        <form id="pixelForm" enctype="multipart/form-data">
+            <label for="companyName">Company Name</label>
+            <input type="text" id="companyName" name="companyName" required>
+
+            <label for="companyLink">Company Link</label>
+            <input type="url" id="companyLink" name="companyLink" required>
+
+            <label for="companyLogo">Company Logo (Upload)</label>
+            <input type="file" id="companyLogo" name="companyLogo" accept="image/*" required>
+
+            <button type="submit">Purchase and Submit</button>
+        </form>
+        </div>
+        <div class="grid-container" id="pixelContainer">
+            <!-- Pixels will be generated here by JavaScript -->
+        </div> 
+
+</div>
+
+
+    <footer>
+        <p>&copy; 2024 Pixel Grid Homepage</p>
+    </footer>
+
+    <script src="assets/js/scripts.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('pixelContainer');
+    const form = document.getElementById('pixelForm');
+    
+    const cols = 10;
+    const rows = 10;
+    const totalPixels = cols * rows;
+    const selectedPixels = new Set();
+    let isDragging = false;
+
+    // Create grid
+    for (let i = 0; i < totalPixels; i++) {
+        const pixel = document.createElement('div');
+        pixel.classList.add('pixel');
+        pixel.dataset.index = i;
+
+        pixel.addEventListener('mousedown', () => {
+            isDragging = true;
+            togglePixelSelection(pixel);
+        });
+
+        pixel.addEventListener('mouseover', () => {
+            if (isDragging) {
+                togglePixelSelection(pixel);
+            }
+        });
+
+        container.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        container.appendChild(pixel);
+    }
+
+    // Toggle pixel selection
+    function togglePixelSelection(pixel) {
+        const index = pixel.dataset.index;
+        if (selectedPixels.has(index)) {
+            selectedPixels.delete(index);
+            pixel.classList.remove('selected');
+        } else {
+            selectedPixels.add(index);
+            pixel.classList.add('selected');
+        }
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const companyName = document.getElementById('companyName').value;
+        const companyLink = document.getElementById('companyLink').value;
+        const companyLogo = document.getElementById('companyLogo').files[0];
+
+        if (!companyLogo) {
+            alert('Please upload a logo!');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('companyLogo', companyLogo);
+        formData.append('companyName', companyName);
+        formData.append('companyLink', companyLink);
+
+        try {
+            const response = await fetch('http://localhost:3000/upload-logo', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                const imageUrl = data.imageUrl;
+                selectedPixels.forEach(index => {
+                    const pixel = container.querySelector(`[data-index='${index}']`);
+                    pixel.style.backgroundImage = `url(${imageUrl})`;
+                    pixel.style.backgroundSize = 'contain';
+                    pixel.style.backgroundPosition = 'center';
+                });
+
+                alert('Logo uploaded successfully!');
+                selectedPixels.clear(); // Reset pixel selections
+            } else {
+                alert('Failed to upload the logo.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred.');
+        }
+    });
+});
+
+    </script>
+      
+      
+      
+</body>
+</html>
