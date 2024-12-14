@@ -23,8 +23,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Serve static files (HTML, CSS, JS) from the 'public' folder
-app.use(express.static(path.join(__dirname, 'public'))); // Correct path for static files
+// Middleware to serve static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
+app.use(express.static(path.join(__dirname, 'public'))); // Serve HTML, CSS, and JS from the 'public' folder
+
+// Default route (for testing purposes)
+app.get('/', (req, res) => {
+    res.send('Server is running!');
+});
 
 // Upload logo endpoint
 app.post('/upload-logo', upload.single('companyLogo'), (req, res) => {
@@ -40,8 +46,8 @@ app.use((req, res, next) => {
     res.status(404).send('404: Page Not Found');
 });
 
-// Dynamically set the port for Render or fallback to 3000
+// Start the server and listen on the port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
