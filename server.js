@@ -23,16 +23,26 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.use(express.static(uploadsDir)); // Serve static files from uploads folder
+// Middleware to serve static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'public'))); // Serve HTML, CSS, and JS from the 'public' folder
 
+// Upload logo endpoint
 app.post('/upload-logo', upload.single('companyLogo'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ success: false, message: 'No file uploaded' });
     }
-    const imageUrl = `http://localhost:3000/${req.file.filename}`;
+    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     res.json({ success: true, imageUrl });
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+// Handle 404 errors for unmatched routes
+app.use((req, res, next) => {
+    res.status(404).send('404: Page Not Found');
+});
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
