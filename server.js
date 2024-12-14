@@ -1,7 +1,8 @@
 const express = require('express');
-const multer = require('multer');
 const path = require('path');
+const multer = require('multer');
 const fs = require('fs');
+
 const app = express();
 
 // Create 'uploads' directory if it doesn't exist
@@ -24,12 +25,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Middleware to serve static files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
-app.use(express.static(path.join(__dirname, 'public'))); // Serve HTML, CSS, and JS from the 'public' folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public'
 
-// Default route (for testing purposes)
+// Serve index.html for the root route
 app.get('/', (req, res) => {
-    res.send('Server is running!');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Upload logo endpoint
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
     res.status(404).send('404: Page Not Found');
 });
 
-// Start the server and listen on the port
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
