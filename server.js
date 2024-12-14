@@ -23,9 +23,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Middleware to serve static files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, 'public'))); // Serve HTML, CSS, and JS from the 'public' folder
+// Serve static files (HTML, CSS, JS) from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public'))); // Correct path for static files
 
 // Upload logo endpoint
 app.post('/upload-logo', upload.single('companyLogo'), (req, res) => {
